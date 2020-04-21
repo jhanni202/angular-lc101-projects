@@ -14,6 +14,7 @@ export class AppComponent {
   message = 'Space shuttle ready for takeoff!';
   takeOffEnabled = true;
   
+  
 
 
 handleTakeOff() {
@@ -27,16 +28,17 @@ handleTakeOff() {
   }
 };
 
-handleLand() {
+handleLand(rocketImage) {
   let result = window.confirm('The shuttle is landing. Landing gear engaged.');
      this.color = 'green';
      this.height = 0;
      this.width = 0;
      this.message = 'The shuttle has landed.';
+     rocketImage.style.bottom = '0px';
      
 };
 
-handleMissionAbort() {
+handleMissionAbort(rocketImage) {
   
   let result = window.confirm('Abort? your serious? For Real?');
   if (result) {
@@ -44,6 +46,10 @@ handleMissionAbort() {
      this.height = 0;
      this.width = 0;
      this.message = 'Mission aborted.';
+     rocketImage.style.bottom = '0px';
+     
+     
+3
      
   }
 };
