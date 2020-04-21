@@ -13,6 +13,10 @@ export class AppComponent {
   width = 0;
   message = 'Space shuttle ready for takeoff!';
   takeOffEnabled = true;
+  vLimit = false;
+  dLimit = false;
+  lLimit = false;
+  rLimit = false;
   
   
 
@@ -35,6 +39,7 @@ handleLand(rocketImage) {
      this.width = 0;
      this.message = 'The shuttle has landed.';
      rocketImage.style.bottom = '0px';
+     this.takeOffEnabled = true;
      
 };
 
@@ -47,6 +52,7 @@ handleMissionAbort(rocketImage) {
      this.width = 0;
      this.message = 'Mission aborted.';
      rocketImage.style.bottom = '0px';
+     this.takeOffEnabled = true;
      
      
 3
@@ -55,28 +61,45 @@ handleMissionAbort(rocketImage) {
 };
 
 moveRocket(rocketImage, direction) {
-  if (direction === 'right') {
-  let movement = parseInt(rocketImage.style.left) + 10 + 'px';
-  rocketImage.style.left = movement;
-  this.width = this.width + 10000;
-    };
-  if (direction === 'left') {
+   if (direction === 'right') {
+   let movement = parseInt(rocketImage.style.left) + 10 + 'px';
+   rocketImage.style.left = movement;
+   this.width = this.width + 10000;
+   this.lLimit = false;
+    }; 
+   if (this.width >= 470000){
+   this.rLimit = true;
+    };   
+   if (direction === 'left') {
     let movement = parseInt(rocketImage.style.left) - 10 + 'px';
     rocketImage.style.left = movement;
     this.width = this.width - 10000;
+    this.rLimit = false;
     };
-  if (direction === 'up') {
+   if (this.width <= -20000){
+    this.lLimit = true;
+    };
+   if (direction === 'up') {
     let movement = parseInt(rocketImage.style.bottom) + 10 + 'px';
     rocketImage.style.bottom = movement;
     this.height = this.height + 10000;
+    this.dLimit = false;
     };
-  if (direction === 'down') {
+   if (this.height >= 340000){
+    this.vLimit = true;
+    };
+   if (direction === 'down') {
     let movement = parseInt(rocketImage.style.bottom) - 10 + 'px';
     rocketImage.style.bottom = movement;
     this.height = this.height - 10000;
+    this.vLimit = false;
+    };
+   if (this.height <= 0){
+    this.dLimit = true;
     };
 
-};
+  };
+
 
 
 }
